@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,8 +6,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main body background inspired by the sample image */
 body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* Diagonal gradient for a modern, two-toned background */
+    background: linear-gradient(135deg, #2b5876 50%, #4e4376 50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,114 +17,128 @@ body {
     padding: 20px;
 }
 
+/* The main card container for the board */
 .board-container {
-    background-color: #ffffff;
+    background-color: #1f2937; /* Dark background for the card */
     width: 100%;
-    max-width: 750px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    border-radius: 16px; /* Prominent rounded corners */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Deep shadow for depth */
     overflow: hidden;
+    color: #e2e8f0; /* Light text color for contrast */
 }
 
+/* Header styling */
 .board-header {
-    background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
-    color: white;
-    padding: 24px;
+    background: #111827; /* Slightly darker header */
+    padding: 25px;
     text-align: center;
+    border-bottom: 1px solid #374151;
 }
 
 .board-header h1 {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    color: #f9fafb;
 }
 
+/* Input section styling */
 .input-section {
     display: flex;
-    gap: 12px;
-    padding: 25px 30px 20px 30px;
-    border-bottom: 1px solid #e1e4e8;
+    gap: 15px;
+    padding: 30px;
+    border-bottom: 1px solid #374151;
     flex-wrap: wrap;
+    background-color: #1f2937;
 }
 
+/* Styling for inputs and button */
 #name-select, #idea-input, #add-btn {
-    padding: 12px 15px;
-    border: 1px solid #ccd0d5;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border: 1px solid #374151;
+    border-radius: 12px; /* Matches container's rounded style */
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
+    background-color: #111827; /* Dark input background */
+    color: #e2e8f0;
 }
 
 #name-select:focus, #idea-input:focus {
-    border-color: #4e4376;
-    box-shadow: 0 0 0 3px rgba(78, 67, 118, 0.1);
+    border-color: #3b82f6; /* Blue highlight on focus */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 #name-select {
     flex: 1;
-    min-width: 150px;
+    min-width: 160px;
     cursor: pointer;
 }
 
 #idea-input {
     flex: 3;
-    min-width: 200px;
+    min-width: 220px;
 }
 
+/* Button styling */
 #add-btn {
-    background-color: #2b5876;
+    background-color: #3b82f6; /* Vibrant blue button */
     color: white;
     border: none;
     cursor: pointer;
     font-weight: 600;
     flex: 1;
-    min-width: 120px;
-    box-shadow: 0 4px 6px rgba(43, 88, 118, 0.2);
+    min-width: 130px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 #add-btn:hover {
-    background-color: #1a3648;
-    box-shadow: 0 6px 8px rgba(43, 88, 118, 0.3);
-    transform: translateY(-1px);
+    background-color: #2563eb; /* Darker blue on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
 }
 
 #add-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(43, 88, 118, 0.2);
+    transform: translateY(0);
 }
 
+/* List section styling */
 .list-section {
-    padding: 20px 30px 35px 30px;
+    padding: 30px;
+    background-color: #1f2937;
 }
 
 #idea-list {
     list-style-type: none;
 }
 
+/* Individual idea item styling */
 #idea-list li {
-    padding: 16px 20px;
-    background-color: #f8f9fa;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    border-left: 5px solid #4e4376;
+    padding: 18px 22px;
+    background-color: #111827; /* Darker background for list items */
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #374151;
     font-size: 1.05rem;
-    color: #2d3748;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    color: #f9fafb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
 }
 
 #idea-list li:hover {
-    transform: translateX(6px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transform: translateY(-3px); /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-color: #3b82f6;
 }
 
+/* Author name styling */
 .author {
-    font-style: italic;
-    color: #718096;
+    font-style: normal;
+    color: #9ca3af; /* Lighter grey for the author */
     font-size: 0.95rem;
+    margin-left: auto; /* Pushes author to the right */
 }
