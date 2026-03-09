@@ -1,24 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let ideas = [];
+
     const addBtn = document.getElementById('add-btn');
     const nameSelect = document.getElementById('name-select');
     const ideaInput = document.getElementById('idea-input');
     const ideaList = document.getElementById('idea-list');
+    
+    // New variables for Part 6 elements
+    const ideaCountDisplay = document.getElementById('idea-count');
+    const clearBtn = document.getElementById('clear-btn');
 
-    // Trigger add function on button click
-    addBtn.addEventListener('click', addIdea);
+    function renderIdeas() {
+        ideaList.innerHTML = '';
 
-    // Trigger add function when the Enter key is pressed in the text box
-    ideaInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            addIdea();
-        }
-    });
+        ideas.forEach((idea) => {
+            const newListItem = document.createElement('li');
+            const ideaTextNode = document.createTextNode(idea.text);
+            
+            const authorSpan = document.createElement('span');
+            authorSpan.className = 'author';
+            authorSpan.textContent = `– suggested by ${idea.author}`;
+
+            newListItem.appendChild(ideaTextNode);
+            newListItem.appendChild(authorSpan);
+            ideaList.appendChild(newListItem);
+        });
+
+        // Update the counter text
+        ideaCountDisplay.textContent = `Total Ideas: ${ideas.length}`;
+    }
 
     function addIdea() {
         const name = nameSelect.value;
         const ideaText = ideaInput.value.trim();
 
-        // Basic validation so empty ideas aren't added
         if (!name) {
             alert('Please select your name from the dropdown.');
             return;
@@ -28,23 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Create the new list item element
-        const newListItem = document.createElement('li');
-        
-        // Create the text and formatting nodes
-        const ideaNode = document.createTextNode(ideaText + ' ');
-        const authorSpan = document.createElement('span');
-        authorSpan.className = 'author';
-        authorSpan.textContent = `– suggested by ${name}`;
-
-        // Assemble the list item
-        newListItem.appendChild(ideaNode);
-        newListItem.appendChild(authorSpan);
-
-        // Add the new item to the unordered list
-        ideaList.appendChild(newListItem);
-
-        // Clear the input field for the next idea
+        const newIdea = { text: ideaText, author: name };
+        ideas.push(newIdea);
+        renderIdeas();
         ideaInput.value = '';
     }
+
+    // Clear all ideas function
+    function clearIdeas() {
+        if (confirm("Are you sure you want to clear all ideas?")) {
+            ideas = [];
+            renderIdeas();
+        }
+    }
+
+    addBtn.addEventListener('click', addIdea);
+    ideaInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') { addIdea(); }
+    });
+    
+    // Event listener for the new clear button
+    clearBtn.addEventListener('click', clearIdeas);
+
+    renderIdeas();
 });

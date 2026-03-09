@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Group Idea Board</title>
+    <title>Group Idea Board</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="board-container">
         <header class="board-header">
+            <span class="logo">💡</span>
             <h1>Group Idea Board</h1>
         </header>
         
         <div class="input-section">
             <select id="name-select" aria-label="Select your name">
+                <option value="" disabled selected>Select your name...</option>
                 <option value="Vidul">Vidul</option>
                 <option value="Chandula">Chandula</option>
                 <option value="Amasha">Amasha</option>
@@ -22,17 +24,26 @@
                 <option value="Ayal">Ayal</option>
                 <option value="Miron">Miron</option>
                 <option value="Krishanth">Krishanth</option>
-                <option value="Lochana">Sahan</option>
-                <option value="Didula">Sahan</option>
+                <option value="Lochana">Lochana</option>
+                <option value="Didula">Didula</option>
             </select>
             <input type="text" id="idea-input" placeholder="Enter your idea here..." aria-label="Enter your idea">
             <button id="add-btn">Add Idea</button>
+        </div>
+
+        <div class="list-header">
+            <span id="idea-count">Total Ideas: 0</span>
+            <button id="clear-btn" class="secondary-btn">Clear All</button>
         </div>
 
         <div class="list-section">
             <ul id="idea-list"></ul>
         </div>
     </div>
+
+    <footer class="page-footer">
+        <p>&copy; 2026 Group Assignment Project. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
