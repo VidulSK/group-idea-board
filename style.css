@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.board-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 750px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.board-header {
+    background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+}
+
+.board-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.input-section {
+    display: flex;
+    gap: 12px;
+    padding: 25px 30px 20px 30px;
+    border-bottom: 1px solid #e1e4e8;
+    flex-wrap: wrap;
+}
+
+#name-select, #idea-input, #add-btn {
+    padding: 12px 15px;
+    border: 1px solid #ccd0d5;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#name-select:focus, #idea-input:focus {
+    border-color: #4e4376;
+    box-shadow: 0 0 0 3px rgba(78, 67, 118, 0.1);
+}
+
+#name-select {
+    flex: 1;
+    min-width: 150px;
+    cursor: pointer;
+}
+
+#idea-input {
+    flex: 3;
+    min-width: 200px;
+}
+
+#add-btn {
+    background-color: #2b5876;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 4px 6px rgba(43, 88, 118, 0.2);
+}
+
+#add-btn:hover {
+    background-color: #1a3648;
+    box-shadow: 0 6px 8px rgba(43, 88, 118, 0.3);
+    transform: translateY(-1px);
+}
+
+#add-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(43, 88, 118, 0.2);
+}
+
+.list-section {
+    padding: 20px 30px 35px 30px;
+}
+
+#idea-list {
+    list-style-type: none;
+}
+
+#idea-list li {
+    padding: 16px 20px;
+    background-color: #f8f9fa;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #4e4376;
+    font-size: 1.05rem;
+    color: #2d3748;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+#idea-list li:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.author {
+    font-style: italic;
+    color: #718096;
+    font-size: 0.95rem;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Idea Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="board-container">
+        <header class="board-header">
+            <h1>Group Idea Board</h1>
+        </header>
+        
+        <div class="input-section">
+            <select id="name-select" aria-label="Select your name">
+                <option value="" disabled selected>Select your name...</option>
+                <option value="Nimal">Nimal</option>
+                <option value="Sara">Sara</option>
+                <option value="Alex">Alex</option>
+                <option value="Chandula">Chandula</option>
+            </select>
+            <input type="text" id="idea-input" placeholder="Enter your idea here..." aria-label="Enter your idea">
+            <button id="add-btn">Add Idea</button>
+        </div>
+
+        <div class="list-section">
+            <ul id="idea-list">
+                <li>Build a study planner <span class="author">– suggested by Nimal</span></li>
+                <li>Start a podcast <span class="author">– suggested by Sara</span></li>
+                <li>Organize a coding workshop <span class="author">– suggested by Alex</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
