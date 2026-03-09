@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ideaInput = document.getElementById('idea-input');
     const ideaList = document.getElementById('idea-list');
     
-    // New variables for Part 6 elements
     const ideaCountDisplay = document.getElementById('idea-count');
     const clearBtn = document.getElementById('clear-btn');
 
     function renderIdeas() {
         ideaList.innerHTML = '';
 
-        ideas.forEach((idea) => {
+        // Added 'index' to specifically target which idea to delete
+        ideas.forEach((idea, index) => {
             const newListItem = document.createElement('li');
             const ideaTextNode = document.createTextNode(idea.text);
             
@@ -21,8 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
             authorSpan.className = 'author';
             authorSpan.textContent = `– suggested by ${idea.author}`;
 
+            // Create the new individual delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '&times;'; // This creates a nice 'X' symbol
+            deleteBtn.title = 'Remove this idea';
+            
+            // Add the click event to remove this specific item
+            deleteBtn.addEventListener('click', () => {
+                ideas.splice(index, 1); // Removes 1 item at the current index
+                renderIdeas(); // Refresh the list
+            });
+
             newListItem.appendChild(ideaTextNode);
             newListItem.appendChild(authorSpan);
+            newListItem.appendChild(deleteBtn); // Add the button to the list item
             ideaList.appendChild(newListItem);
         });
 
@@ -62,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') { addIdea(); }
     });
     
-    // Event listener for the new clear button
     clearBtn.addEventListener('click', clearIdeas);
 
     renderIdeas();

@@ -7,7 +7,7 @@
 
 /* Updated to the modern, two-toned background from the second file */
 body {
-    background: linear-gradient(135deg, #2b5876 50%, #4e4376 50%);
+    /* Your existing layout (untouched) */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,6 +15,29 @@ body {
     min-height: 100vh;
     padding: 20px;
     color: #333;
+
+    /* The Moving Gradient Setup */
+    /* We use the colors in a sequence so the loop is invisible */
+    background: linear-gradient(135deg, #78B9B5, #0F828C, #320A6B);
+    
+    /* Stretches the background out so it can slide */
+    background-size: 300% 300%;
+    
+    /* Triggers the movement */
+    animation: slideGradient 8s ease infinite;
+}
+
+/* The actual movement instructions */
+@keyframes slideGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Enhanced layout, spacing, and shadows */
@@ -60,7 +83,19 @@ body {
     flex-wrap: wrap;
 }
 
-#name-select, #idea-input, #add-btn {
+#name-select{
+    padding: 14px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    display: inline-block; 
+    width: max-content;
+}
+
+#idea-input, #add-btn {
     padding: 14px 18px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -167,4 +202,22 @@ body {
     font-size: 0.95rem;
     text-align: center;
     margin-top: 10px;
+}
+
+/* Styling for the individual delete button */
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ef4444; /* Red color to match the clear button */
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 0 5px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #fee2e2;
+    color: #b91c1c;
 }
