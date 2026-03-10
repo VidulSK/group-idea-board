@@ -6,11 +6,11 @@
     <title>Home - Student Hub</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
     <nav class="top-nav">
         <div class="nav-logo">💡 Student Hub</div>
         <ul class="nav-links">
-            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="#top" class="active">Home</a></li>
             <li><a href="index.html">Idea Board</a></li>
             <li><a href="timer.html">Study Timer</a></li>
             <li><a href="gpa.html">GPA Calculator</a></li>
@@ -24,8 +24,10 @@
 
     <aside class="sidebar">
         <ul class="sidebar-links">
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="events.html">Upcoming Events</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#vision-mission">Vision & Mission</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#events">Upcoming Events</a></li>
         </ul>
     </aside>
 
@@ -62,7 +64,7 @@
                 </div>
             </section>
 
-            <section class="faq-section">
+            <section id="faq" class="faq-section content-section">
                 <h2 class="faq-title">Frequently Asked Questions</h2>
                 
                 <details class="faq-item">
@@ -92,7 +94,43 @@
                         <p>Yes, the Bachelor of Information Technology (BIT) is a highly recognized external degree program that produces hundreds of graduates annually.</p>
                     </div>
                 </details>
+            </section>
 
+            <section id="about" class="content-section">
+                <h2 class="page-title">About UCSC</h2>
+                <div class="text-block">
+                    <p>In September 2002, University of Colombo School of Computing (UCSC) was established by merging The Institute of Computer Technology (ICT Ordinance 1987.09.21) and The Department of Computer Science both of the University of Colombo, as the first centre of higher learning of computing in Sri Lanka. The number of students admitted to these programmes may be increased in the coming years. A total of 200 students were admitted by the three M.Sc programmes in Computer Science, Information Technology and Advanced Computing which started in the year 2002. Computer Science course modules are also conducted for first, second, third and fourth year students of the Physical and Bio Science streams of the Faculty of Science, University of Colombo. The vision of the UCSC is to be a centre of international repute in training in Information and Communication Technologies (ICT).</p>
+                    
+                    <p>The UCSC is fully equipped with nine student laboratories, two multi media laboratories, two research laboratories, a campus wide fibre network, with the entire UCSC building complex fully wired for Internet access. UCSC has a state of the art network-operating centre. The library is well equipped with Books, Journals, CDs and provides Internet access to e-journals. The UCSC is involved in many research areas such as, Natural & Local Language Processing, Human Computer Interfaces, Image Processing and Vision, Cryptographic Systems, Multi Media and Virtual Reality, Intelligent Agent Systems, Pattern Recognition, Distributed Systems, Information Retrieval and Data Mining, Process Broker Modeling Systems, Web Based Business Services, Multi Media Database Systems, e-Learning, Strategic Planning & Management of IT, IT Policy and Multi Database Systems.</p>
+                    
+                    <p>The major goal of the UCSC is to prepare students for careers in Information and Communication Technology as Software Developers, Systems Analysts, Network Administrators, Database Administrators, Web Developers, IT Managers, IT Strategic Planners and IT Policy Makers.</p>
+                    
+                    <p><em>Ordinance Gazetted on 15th Nov 2002 (GZT NO. 1262/32).</em><br>
+                    <em>The University of Colombo School of Computing (Amendment) Ordinance No. 1 of 2011 – Rescission of the Gaz. Ex. No. 63/8 of 21.11.1979 – Ministry of Higher Education (Date 22 July 2011, GZT NO. 1715/32, W/T NO G14826, TYP I/I –English, Sinhala, Tamil). Ordinance Amended to include the Digital Forensics Centre.</em></p>
+                </div>
+            </section>
+
+            <section id="vision-mission" class="content-section">
+                <h2 class="page-title">Our Purpose</h2>
+                <div class="vm-grid">
+                    <div class="vm-card">
+                        <h3>🎯 Vision</h3>
+                        <p>Be a Global Leader in Computing, Advancing the Frontiers of Knowledge through Teaching, Learning and Research.</p>
+                    </div>
+                    <div class="vm-card">
+                        <h3>🚀 Mission</h3>
+                        <p>To advance and enhance computing knowledge, fostering global strategic alliances, promoting cross disciplinary research, producing socially responsible professionals with entrepreneurial skills, leadership qualities and integrity contributing to position the country as a knowledge hub in the region.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" class="content-section" style="margin-bottom: 0; padding-bottom: 80px;">
+                <h2 class="page-title">Upcoming Events</h2>
+                <ul class="events-list">
+                    <li><span class="event-date">March 16th</span> - Vibe Coding Presentation</li>
+                    <li><span class="event-date">March 25th</span> - Cultural Event</li>
+                    <li><span class="event-date">April 27th</span> - Inauguration Day</li>
+                </ul>
             </section>
         </div>
         

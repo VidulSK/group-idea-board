@@ -297,3 +297,201 @@ body {
    IDEA BOARD STYLES (Kept for index.html)
    ========================================= */
 /* ... (Keep your existing Idea Board styles here if they are in the same file) ... */
+
+/* =========================================
+   ABOUT US PAGE STYLES
+   ========================================= */
+
+/* Enables the smooth gliding animation when clicking sidebar links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Main container for text-heavy pages */
+.page-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Individual sections */
+.content-section {
+    margin-bottom: 60px;
+    /* Prevents the fixed top nav from covering the section title when scrolled to */
+    scroll-margin-top: 90px; 
+}
+
+.page-title {
+    font-size: 3rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 30px;
+    border-bottom: 3px solid #ffcc00; /* UCSC Gold underline */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* Typography for readability */
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.text-block em {
+    font-size: 0.95rem;
+    color: #6b7280;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Vision & Mission Cards Layout */
+.vm-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.vm-card {
+    flex: 1;
+    min-width: 300px;
+    background-color: #ffcc00; /* UCSC Gold */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.vm-card:hover {
+    transform: translateY(-5px);
+}
+
+.vm-card h3 {
+    font-size: 1.8rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vm-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Container for the FAQ on the About page */
+.faq-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* =========================================
+   SCROLLING & SECTION STYLES
+   ========================================= */
+html {
+    scroll-behavior: smooth; /* Makes the sidebar links glide smoothly */
+}
+
+.content-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    scroll-margin-top: 80px; /* Stops the section from hiding under the top nav */
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 30px;
+    border-bottom: 3px solid #ffcc00; /* UCSC Gold */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.text-block em { font-size: 0.95rem; color: #6b7280; display: block; margin-top: 10px; }
+
+/* Vision & Mission Cards */
+.vm-grid { display: flex; gap: 30px; flex-wrap: wrap; }
+.vm-card {
+    flex: 1; min-width: 300px; background-color: #ffcc00; padding: 40px;
+    border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.vm-card h3 { font-size: 1.8rem; color: #800000; margin-bottom: 20px; display: flex; gap: 10px; }
+.vm-card p { font-size: 1.1rem; line-height: 1.6; color: #1f2937; font-weight: 500; }
+
+/* Events List */
+.events-list { list-style: none; padding-left: 0; }
+.events-list li {
+    background-color: #ffffff; padding: 20px; margin-bottom: 15px;
+    border-radius: 8px; border-left: 5px solid #800000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 1.15rem; color: #374151;
+}
+.event-date { font-weight: 700; color: #800000; margin-right: 10px; }
+
+
+/* =========================================
+   PROPER DARK MODE OVERRIDES
+   ========================================= */
+body.dark-mode {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+/* Make backgrounds dark instead of white */
+body.dark-mode .scrolling-content,
+body.dark-mode .faq-section,
+body.dark-mode .events-list li {
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
+/* Adjust text colors for dark mode readability */
+body.dark-mode .text-block p,
+body.dark-mode .events-list li {
+    color: #cbd5e1;
+}
+
+body.dark-mode .faq-title,
+body.dark-mode .page-title,
+body.dark-mode .event-date {
+    color: #ffcc00; /* Gold looks better than Maroon on dark grey */
+    border-bottom-color: #f9fafb;
+}
+
+body.dark-mode .faq-item {
+    border-color: #374151;
+}
+
+body.dark-mode .faq-item summary {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+body.dark-mode .faq-item summary:hover {
+    background-color: #4b5563;
+}
+
+body.dark-mode .faq-answer {
+    background-color: #1f2937;
+    color: #cbd5e1;
+    border-top-color: #374151;
+}
+
+body.dark-mode .events-list li {
+    border-left-color: #ffcc00;
+}
