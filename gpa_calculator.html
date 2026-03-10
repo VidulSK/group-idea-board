@@ -6,6 +6,19 @@
     <title>GPA Calculator</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enables toggling dark mode via a CSS class
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#800000',
+                        gold: '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         * {
@@ -23,7 +36,8 @@
             min-height: 100vh;
             padding: 40px 20px;
             color: #333;
-            background: linear-gradient(135deg, #78B9B5, #0F828C, #320A6B);
+            /* New Maroon and Gold Gradient */
+            background: linear-gradient(135deg, #4A0000, #800000, #B8860B, #FFD700);
             background-size: 300% 300%;
             animation: slideGradient 8s ease infinite;
         }
@@ -35,15 +49,21 @@
         }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f3f4f6; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         .row-transition { transition: all 0.3s ease; }
         
+        /* Focus rings adjusting for light/dark mode */
         .gpa-focus:focus {
             border-color: #3b82f6 !important;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+        }
+        .dark .gpa-focus:focus {
+            border-color: #FFD700 !important;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15) !important;
         }
 
         .page-footer {
@@ -51,34 +71,41 @@
             font-size: 0.95rem;
             text-align: center;
             margin-top: 20px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Helps legibility on dynamic bg */
         }
     </style>
 </head>
-<body>
+<body class="transition-colors duration-300">
 
-    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 text-gray-800">
+    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2 flex flex-col space-y-6">
             
-            <div class="bg-white p-6 rounded-[16px] border border-gray-100 shadow-[0_15px_35px_rgba(0,0,0,0.3)]">
-                <h2 class="text-[1.8rem] font-bold text-[#2b5876] mb-4 flex items-center gap-2">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-[16px] border border-gray-100 dark:border-gray-700 shadow-[0_15px_35px_rgba(0,0,0,0.4)] relative transition-colors duration-300">
+                
+                <button id="theme-toggle" class="absolute top-6 right-6 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" title="Toggle Dark Mode">
+                    <span id="theme-icon">🌙</span>
+                </button>
+
+                <h2 class="text-[1.8rem] font-bold text-[#2b5876] dark:text-gold mb-4 flex items-center gap-2 transition-colors">
                     <span class="text-2xl">📊</span>
                     GPA Calculator
                 </h2>
+                
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="semester-tabs">
-                    <button data-sem="y1s1" class="sem-btn py-2 px-4 rounded-lg bg-[#3b82f6] text-white font-medium shadow-[0_4px_6px_rgba(59,130,246,0.2)] transition-all">Year 1 - Sem 1</button>
-                    <button data-sem="y1s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 1 - Sem 2</button>
-                    <button data-sem="y2s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 2 - Sem 1</button>
-                    <button data-sem="y2s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 2 - Sem 2</button>
+                    <button data-sem="y1s1" class="sem-btn py-2 px-4 rounded-lg bg-[#3b82f6] dark:bg-maroon text-white font-medium shadow-[0_4px_6px_rgba(0,0,0,0.2)] transition-all">Year 1 - Sem 1</button>
+                    <button data-sem="y1s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 1 - Sem 2</button>
+                    <button data-sem="y2s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 2 - Sem 1</button>
+                    <button data-sem="y2s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 2 - Sem 2</button>
                     
-                    <button data-sem="y3s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 3 - Sem 1</button>
-                    <button data-sem="y3s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 3 - Sem 2</button>
-                    <button data-sem="y4s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 4 - Sem 1</button>
-                    <button data-sem="y4s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all">Year 4 - Sem 2</button>
+                    <button data-sem="y3s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 3 - Sem 1</button>
+                    <button data-sem="y3s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 3 - Sem 2</button>
+                    <button data-sem="y4s1" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 4 - Sem 1</button>
+                    <button data-sem="y4s2" class="sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all">Year 4 - Sem 2</button>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-[16px] border border-gray-100 shadow-[0_15px_35px_rgba(0,0,0,0.3)] flex-grow">
-                <div class="hidden md:grid grid-cols-12 gap-4 mb-3 px-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-[16px] border border-gray-100 dark:border-gray-700 shadow-[0_15px_35px_rgba(0,0,0,0.4)] flex-grow transition-colors duration-300">
+                <div class="hidden md:grid grid-cols-12 gap-4 mb-3 px-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     <div class="col-span-6">Module Name</div>
                     <div class="col-span-2 text-center">Credits</div>
                     <div class="col-span-3 text-center">Grade</div>
@@ -87,62 +114,62 @@
 
                 <div id="modules-container" class="space-y-3 mb-6"></div>
 
-                <button id="add-module-btn" class="w-full md:w-auto py-2 px-6 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold transition-all flex items-center justify-center gap-2 border border-blue-100">
+                <button id="add-module-btn" class="w-full md:w-auto py-2 px-6 rounded-lg bg-blue-50 dark:bg-gray-700 text-blue-600 dark:text-gold hover:bg-blue-600 dark:hover:bg-maroon hover:text-white font-semibold transition-all flex items-center justify-center gap-2 border border-blue-100 dark:border-gray-600">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Add Module
                 </button>
             </div>
 
-            <div class="bg-white p-6 rounded-[16px] border border-gray-100 shadow-[0_15px_35px_rgba(0,0,0,0.3)]">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-[16px] border border-gray-100 dark:border-gray-700 shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-colors duration-300">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div class="flex space-x-8">
                         <div>
-                            <p class="text-sm text-gray-500 uppercase tracking-wider mb-1 font-semibold">Sem Modules</p>
-                            <p id="total-modules" class="text-2xl font-bold text-gray-800">0</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 font-semibold">Sem Modules</p>
+                            <p id="total-modules" class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 uppercase tracking-wider mb-1 font-semibold">Sem Credits</p>
-                            <p id="total-credits" class="text-2xl font-bold text-gray-800">0</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 font-semibold">Sem Credits</p>
+                            <p id="total-credits" class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
                         </div>
                     </div>
-                    <div class="text-center md:text-right bg-[#fafbfc] px-8 py-4 rounded-xl border border-gray-200">
-                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-1 font-semibold">Semester GPA</p>
-                        <p id="gpa-display" class="text-5xl font-black text-[#2b5876] tracking-tight">0.00</p>
-                        <p id="cgpa-display" class="text-sm text-gray-500 mt-2 font-semibold">Cumulative GPA: 0.00</p>
+                    <div class="text-center md:text-right bg-[#fafbfc] dark:bg-gray-900 px-8 py-4 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-300">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 font-semibold">Semester GPA</p>
+                        <p id="gpa-display" class="text-5xl font-black text-[#2b5876] dark:text-white tracking-tight">0.00</p>
+                        <p id="cgpa-display" class="text-sm text-gray-500 dark:text-gray-400 mt-2 font-semibold">Cumulative GPA: 0.00</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="lg:col-span-1">
-            <div class="bg-white p-6 rounded-[16px] border border-gray-100 shadow-[0_15px_35px_rgba(0,0,0,0.3)] sticky top-8">
-                <h2 class="text-xl font-bold text-[#2b5876] mb-6 border-b border-gray-100 pb-3 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-[16px] border border-gray-100 dark:border-gray-700 shadow-[0_15px_35px_rgba(0,0,0,0.4)] sticky top-8 transition-colors duration-300">
+                <h2 class="text-xl font-bold text-[#2b5876] dark:text-gold mb-6 border-b border-gray-100 dark:border-gray-700 pb-3 flex items-center gap-2 transition-colors">
+                    <svg class="w-5 h-5 text-blue-500 dark:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                     Grading Scale
                 </h2>
                 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <thead class="text-xs text-gray-500 uppercase bg-gray-50 rounded-lg">
+                        <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-900 rounded-lg transition-colors">
                             <tr>
                                 <th scope="col" class="px-4 py-3 rounded-l-lg">Grade</th>
                                 <th scope="col" class="px-4 py-3 text-center">GPA</th>
                                 <th scope="col" class="px-4 py-3 text-right rounded-r-lg">Marks</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100 text-gray-600">
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">A+</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">4.0</td><td class="px-4 py-2 text-right">90 - 100</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">A</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">4.0</td><td class="px-4 py-2 text-right">80 - 89</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">A-</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">3.7</td><td class="px-4 py-2 text-right">75 - 79</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">B+</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">3.3</td><td class="px-4 py-2 text-right">70 - 74</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">B</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">3.0</td><td class="px-4 py-2 text-right">65 - 69</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">B-</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">2.7</td><td class="px-4 py-2 text-right">60 - 64</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">C+</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">2.3</td><td class="px-4 py-2 text-right">55 - 59</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">C</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">2.0</td><td class="px-4 py-2 text-right">50 - 54</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">C-</td><td class="px-4 py-2 text-center text-blue-600 font-semibold">1.7</td><td class="px-4 py-2 text-right">45 - 49</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">D+</td><td class="px-4 py-2 text-center text-red-500 font-semibold">1.3</td><td class="px-4 py-2 text-right">40 - 44</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-gray-800">D</td><td class="px-4 py-2 text-center text-red-500 font-semibold">1.0</td><td class="px-4 py-2 text-right">30 - 39</td></tr>
-                            <tr class="hover:bg-gray-50 transition-colors"><td class="px-4 py-2 font-bold text-red-500">E</td><td class="px-4 py-2 text-center text-red-500 font-semibold">0.0</td><td class="px-4 py-2 text-right">0 - 29</td></tr>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700 text-gray-600 dark:text-gray-300">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">A+</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">4.0</td><td class="px-4 py-2 text-right">90 - 100</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">A</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">4.0</td><td class="px-4 py-2 text-right">80 - 89</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">A-</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">3.7</td><td class="px-4 py-2 text-right">75 - 79</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">B+</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">3.3</td><td class="px-4 py-2 text-right">70 - 74</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">B</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">3.0</td><td class="px-4 py-2 text-right">65 - 69</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">B-</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">2.7</td><td class="px-4 py-2 text-right">60 - 64</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">C+</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">2.3</td><td class="px-4 py-2 text-right">55 - 59</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">C</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">2.0</td><td class="px-4 py-2 text-right">50 - 54</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">C-</td><td class="px-4 py-2 text-center text-blue-600 dark:text-gold font-semibold">1.7</td><td class="px-4 py-2 text-right">45 - 49</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">D+</td><td class="px-4 py-2 text-center text-red-500 dark:text-red-400 font-semibold">1.3</td><td class="px-4 py-2 text-right">40 - 44</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-gray-800 dark:text-white">D</td><td class="px-4 py-2 text-center text-red-500 dark:text-red-400 font-semibold">1.0</td><td class="px-4 py-2 text-right">30 - 39</td></tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"><td class="px-4 py-2 font-bold text-red-500 dark:text-red-400">E</td><td class="px-4 py-2 text-center text-red-500 dark:text-red-400 font-semibold">0.0</td><td class="px-4 py-2 text-right">0 - 29</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -155,6 +182,33 @@
     </footer>
 
     <script>
+        // ==========================================
+        // DARK MODE LOGIC
+        // ==========================================
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Check local storage for theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // ==========================================
+        // GPA CALCULATOR LOGIC
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
             const gradePoints = {
                 'A+': 4.0, 'A': 4.0, 'A-': 3.7,
@@ -179,6 +233,10 @@
             const displayTotalCredits = document.getElementById('total-credits');
             const displayGPA = document.getElementById('gpa-display');
             const displayCGPA = document.getElementById('cgpa-display');
+
+            // CSS classes for tabs so JS applies them properly based on dark/light mode
+            const activeTabClass = 'sem-btn py-2 px-4 rounded-lg bg-[#3b82f6] dark:bg-maroon text-white font-medium shadow-[0_4px_6px_rgba(0,0,0,0.2)] transition-all';
+            const inactiveTabClass = 'sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all';
 
             function saveCurrentSemester() {
                 const rows = container.querySelectorAll('.module-row');
@@ -225,13 +283,13 @@
                     const sgpa = (currentSemPoints / currentSemCredits).toFixed(2);
                     displayGPA.textContent = sgpa;
                     
-                    if (sgpa >= 3.7) displayGPA.className = 'text-5xl font-black text-green-600 tracking-tight transition-colors';
-                    else if (sgpa >= 3.0) displayGPA.className = 'text-5xl font-black text-green-500 tracking-tight transition-colors';
-                    else if (sgpa >= 2.0) displayGPA.className = 'text-5xl font-black text-yellow-500 tracking-tight transition-colors';
-                    else displayGPA.className = 'text-5xl font-black text-red-500 tracking-tight transition-colors';
+                    if (sgpa >= 3.7) displayGPA.className = 'text-5xl font-black text-green-600 dark:text-green-400 tracking-tight transition-colors';
+                    else if (sgpa >= 3.0) displayGPA.className = 'text-5xl font-black text-green-500 dark:text-green-300 tracking-tight transition-colors';
+                    else if (sgpa >= 2.0) displayGPA.className = 'text-5xl font-black text-yellow-500 dark:text-yellow-400 tracking-tight transition-colors';
+                    else displayGPA.className = 'text-5xl font-black text-red-500 dark:text-red-400 tracking-tight transition-colors';
                 } else {
                     displayGPA.textContent = '0.00';
-                    displayGPA.className = 'text-5xl font-black text-[#2b5876] tracking-tight transition-colors';
+                    displayGPA.className = 'text-5xl font-black text-[#2b5876] dark:text-white tracking-tight transition-colors';
                 }
 
                 if (totalCredits > 0) {
@@ -244,7 +302,7 @@
 
             function addModuleRow(nameVal = '', creditVal = '', gradeVal = '') {
                 const newRow = document.createElement('div');
-                newRow.className = 'module-row grid grid-cols-1 md:grid-cols-12 gap-3 items-center bg-gray-50 p-3 rounded-xl border border-gray-200 row-transition hover:border-blue-200 hover:shadow-sm transition-all opacity-0 transform translate-y-2';
+                newRow.className = 'module-row grid grid-cols-1 md:grid-cols-12 gap-3 items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 row-transition hover:border-blue-200 dark:hover:border-gold hover:shadow-sm transition-all opacity-0 transform translate-y-2';
                 
                 const grades = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'E'];
                 let optionsHTML = `<option value="" disabled ${gradeVal === '' ? 'selected' : ''}>Select</option>`;
@@ -253,14 +311,14 @@
                 });
 
                 newRow.innerHTML = `
-                    <div class="md:col-span-6"><input type="text" value="${nameVal}" placeholder="Module Name" class="gpa-focus w-full bg-white border border-gray-300 rounded-lg text-gray-800 px-3 py-2 outline-none transition-colors"></div>
-                    <div class="md:col-span-2"><input type="number" value="${creditVal}" min="1" max="10" placeholder="Credits" class="credit-input gpa-focus w-full bg-white border border-gray-300 rounded-lg text-gray-800 px-3 py-2 text-center outline-none transition-colors"></div>
+                    <div class="md:col-span-6"><input type="text" value="${nameVal}" placeholder="Module Name" class="gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 outline-none transition-colors"></div>
+                    <div class="md:col-span-2"><input type="number" value="${creditVal}" min="1" max="10" placeholder="Credits" class="credit-input gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 text-center outline-none transition-colors"></div>
                     <div class="md:col-span-3">
-                        <select class="grade-select gpa-focus w-full bg-white border border-gray-300 rounded-lg text-gray-800 px-3 py-2 outline-none transition-colors text-center cursor-pointer">
+                        <select class="grade-select gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 outline-none transition-colors text-center cursor-pointer">
                             ${optionsHTML}
                         </select>
                     </div>
-                    <div class="md:col-span-1 flex justify-center"><button class="delete-btn-gpa text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors p-2 rounded-lg" title="Delete Module"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
+                    <div class="md:col-span-1 flex justify-center"><button class="delete-btn-gpa text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-colors p-2 rounded-lg" title="Delete Module"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
                 `;
                 
                 container.appendChild(newRow);
@@ -290,10 +348,10 @@
                 btn.addEventListener('click', (e) => {
                     saveCurrentSemester(); 
                     
-                    semBtns.forEach(b => b.className = 'sem-btn py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-medium transition-all');
+                    semBtns.forEach(b => b.className = inactiveTabClass);
                     
                     const clickedBtn = e.target;
-                    clickedBtn.className = 'sem-btn py-2 px-4 rounded-lg bg-[#3b82f6] text-white font-medium shadow-[0_4px_6px_rgba(59,130,246,0.2)] transition-all';
+                    clickedBtn.className = activeTabClass;
                     
                     currentSem = clickedBtn.dataset.sem;
                     container.innerHTML = ''; 
