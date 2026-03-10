@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Idea Board</title>
+    <title>Idea Board - UCSC Hub</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,34 +12,92 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* The Moving Gradient Setup */
+        /* Updated to UCSC Theme */
         body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            /* Padding top accounts for the fixed nav. No left padding since there's no sidebar */
+            padding: 85px 20px 0 20px; 
             color: #333;
-            background: linear-gradient(135deg, #78B9B5, #0F828C, #320A6B);
-            background-size: 300% 300%;
-            animation: slideGradient 8s ease infinite;
+            background-color: #f9fafb;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        @keyframes slideGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Navigation Bar (Maroon Theme) */
+        .top-nav {
+            width: 100%;
+            background-color: #800000; /* UCSC Maroon */
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: fixed; 
+            top: 0;
+            left: 0;
+            z-index: 1000; 
         }
 
+        .nav-logo {
+            color: #ffcc00; /* UCSC Gold */
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li a {
+            color: #f9fafb;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #ffcc00;
+            background-color: rgba(255, 204, 0, 0.1);
+        }
+
+        .nav-links li a.active {
+            color: #800000;
+            background-color: #ffcc00;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            filter: grayscale(100%) brightness(200%);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-btn:hover {
+            opacity: 1;
+        }
+
+        /* Idea Board Container */
         .board-container {
             background-color: #ffffff;
             width: 100%;
             max-width: 800px;
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .board-header {
@@ -51,6 +109,7 @@
             justify-content: center;
             align-items: center;
             gap: 12px;
+            transition: background-color 0.3s ease;
         }
 
         .logo {
@@ -60,7 +119,7 @@
         .board-header h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #2b5876;
+            color: #800000; /* Changed from blue to maroon */
         }
 
         .input-section {
@@ -70,6 +129,7 @@
             background-color: #fafbfc;
             border-bottom: 1px solid #e1e4e8;
             flex-wrap: wrap;
+            transition: background-color 0.3s ease;
         }
 
         #name-select, #idea-input, #add-btn {
@@ -83,28 +143,28 @@
         }
 
         #name-select:focus, #idea-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            border-color: #800000; /* Maroon focus */
+            box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.15);
         }
 
         #name-select { flex: 1; min-width: 160px; cursor: pointer; }
-        #idea-input { flex: 3; min-width: 220px; }
+        #idea-input { flex: 3; min-width: 220px; color: #333; }
 
         #add-btn {
-            background-color: #3b82f6;
+            background-color: #800000; /* Maroon Button */
             color: white;
             border: none;
             cursor: pointer;
             font-weight: 600;
             flex: 1;
             min-width: 130px;
-            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 4px 6px rgba(128, 0, 0, 0.2);
         }
 
         #add-btn:hover {
-            background-color: #2563eb;
+            background-color: #660000; /* Darker Maroon */
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 6px 12px rgba(128, 0, 0, 0.3);
         }
 
         .list-header {
@@ -147,11 +207,11 @@
             margin-bottom: 15px;
             border-radius: 10px;
             border: 1px solid #e5e7eb;
-            border-left: 5px solid #3b82f6;
+            border-left: 5px solid #ffcc00; /* Gold accent line */
             font-size: 1.05rem;
             color: #1f2937;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -167,13 +227,6 @@
             color: #6b7280;
             font-size: 0.95rem;
             margin-left: auto;
-        }
-
-        .page-footer {
-            color: #e2e8f0;
-            font-size: 0.95rem;
-            text-align: center;
-            margin-top: 10px;
         }
 
         .delete-btn {
@@ -192,9 +245,70 @@
             background-color: #fee2e2;
             color: #b91c1c;
         }
+
+        .page-footer {
+            background-color: #800000; /* Maroon Footer */
+            color: #ffcc00; /* Gold text */
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            margin-top: auto; /* Pushes footer to the very bottom */
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            background-color: #111827;
+            color: #f9fafb;
+        }
+        body.dark-mode .board-container, 
+        body.dark-mode .board-header {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        body.dark-mode .input-section {
+            background-color: #111827;
+            border-color: #374151;
+        }
+        body.dark-mode .board-header h1 { color: #ffcc00; }
+        body.dark-mode #name-select, 
+        body.dark-mode #idea-input {
+            background-color: #1f2937;
+            color: #f9fafb;
+            border-color: #374151;
+        }
+        body.dark-mode #idea-list li {
+            background-color: #111827;
+            color: #cbd5e1;
+            border-color: #374151;
+        }
+        body.dark-mode .list-header { color: #cbd5e1; }
+        body.dark-mode .secondary-btn {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        body.dark-mode .secondary-btn:hover {
+            background-color: #7f1d1d;
+            color: #fca5a5;
+        }
     </style>
 </head>
 <body>
+    <nav class="top-nav">
+        <div class="nav-logo">UCSC Hub</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="ideaboard.html" class="active">Idea Board</a></li>
+            <li><a href="timer.html">Study Timer</a></li>
+            <li><a href="gpa.html">GPA Calculator</a></li>
+        </ul>
+        
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+            <span class="icon sun">☀️</span>
+            <span class="icon moon" style="display: none;">🌙</span>
+        </button>
+    </nav>
+
     <div class="board-container">
         <header class="board-header">
             <span class="logo">💡</span>
@@ -235,6 +349,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Theme Toggle Logic ---
+            const themeBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.querySelector('.sun');
+            const moonIcon = document.querySelector('.moon');
+
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    
+                    if (document.body.classList.contains('dark-mode')) {
+                        sunIcon.style.display = 'none';
+                        moonIcon.style.display = 'inline';
+                    } else {
+                        sunIcon.style.display = 'inline';
+                        moonIcon.style.display = 'none';
+                    }
+                });
+            }
+
+            // --- Idea Board Logic ---
             let ideas = [];
 
             const addBtn = document.getElementById('add-btn');
@@ -311,8 +446,4 @@
         });
     </script>
 </body>
-<<<<<<< HEAD
-</html
-=======
 </html>
->>>>>>> 48e48ac2104649b53018002dcf6bf1bc968a812d
