@@ -323,12 +323,18 @@ html {
 }
 
 .page-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #800000; /* UCSC Maroon */
-    margin-bottom: 30px;
-    border-bottom: 3px solid #ffcc00; /* UCSC Gold underline */
-    display: inline-block;
+    
+    /* These three lines are the magic trick to center it perfectly 
+       while keeping the border tightly wrapped under the text */
+    margin: 0 auto 30px auto; 
+    width: fit-content; 
+    display: block;
+    
+    border-bottom: 3px solid #ffcc00; /* UCSC Gold */
     padding-bottom: 10px;
+    text-align: center;
 }
 
 /* Typography for readability */
