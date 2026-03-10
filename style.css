@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,219 +6,498 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Updated to the modern, two-toned background from the second file */
+/* Consolidated Body Styling */
 body {
-    /* Your existing layout (untouched) */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    /* Padding order: Top(nav), Right, Bottom, Left(sidebar) */
+    padding: 65px 0 0 220px; 
     color: #333;
-
-    /* The Moving Gradient Setup */
-    /* We use the colors in a sequence so the loop is invisible */
-    background: linear-gradient(135deg, #78B9B5, #0F828C, #320A6B);
-    
-    /* Stretches the background out so it can slide */
-    background-size: 300% 300%;
-    
-    /* Triggers the movement */
-    animation: slideGradient 8s ease infinite;
+    background-color: #f9fafb; /* Neutral background for the whole page */
+    overflow-x: hidden; /* Prevents horizontal scrollbar/blue bar issue */
 }
 
-/* The actual movement instructions */
-@keyframes slideGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/* =========================================
+   NAVIGATION & SIDEBAR (MAROON THEME)
+   ========================================= */
 
-/* Enhanced layout, spacing, and shadows */
-.board-container {
-    background-color: #ffffff;
+/* Top Navigation Bar */
+.top-nav {
     width: 100%;
-    max-width: 800px;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Deeper shadow to stand out against the dark background */
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-/* Part 6: Header layout including space for the new logo */
-.board-header {
-    background: #ffffff;
-    padding: 25px;
-    text-align: center;
-    border-bottom: 2px solid #f0f4f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo {
-    font-size: 2rem;
-}
-
-.board-header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #2b5876;
-}
-
-/* Clean input section layout */
-.input-section {
-    display: flex;
-    gap: 15px;
-    padding: 30px;
-    background-color: #fafbfc;
-    border-bottom: 1px solid #e1e4e8;
-    flex-wrap: wrap;
-}
-
-#name-select{
-    padding: 14px 18px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s ease;
-    background-color: #ffffff;
-    display: inline-block; 
-    width: max-content;
-}
-
-#idea-input, #add-btn {
-    padding: 14px 18px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s ease;
-    background-color: #ffffff;
-}
-
-#name-select:focus, #idea-input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-
-#name-select { flex: 1; min-width: 160px; cursor: pointer; }
-#idea-input { flex: 3; min-width: 220px; }
-
-/* Part 5: Visually appealing primary button */
-#add-btn {
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    flex: 1;
-    min-width: 130px;
-    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
-}
-
-#add-btn:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
-}
-
-/* Part 6: Sub-header for the Counter and Clear button */
-.list-header {
+    background-color: #800000; /* UCSC Maroon */
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px 0 30px;
-    font-weight: 600;
-    color: #6b7280;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000; 
 }
 
-/* Part 6: Clear Button Styling */
-.secondary-btn {
-    background-color: #f3f4f6;
-    color: #ef4444;
-    border: 1px solid #e5e7eb;
-    padding: 8px 16px;
-    border-radius: 6px;
+.nav-logo {
+    color: #ffcc00; /* UCSC Gold */
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links li a {
+    color: #f9fafb; /* Light text for contrast */
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ffcc00; /* Gold on hover */
+    background-color: rgba(255, 204, 0, 0.1);
+}
+
+.nav-links li a.active {
+    color: #800000; /* Maroon text */
+    background-color: #ffcc00; /* Gold background for active link */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Theme Toggle Button */
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
+    filter: grayscale(100%) brightness(200%); /* Makes icons lighter for maroon bg */
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.theme-btn:hover {
+    opacity: 1;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 65px; 
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 65px);
+    background-color: #660000; /* Slightly darker maroon for sidebar */
+    padding: 25px 0;
+    border-right: 1px solid #800000;
+    z-index: 900;
+}
+
+.sidebar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-links li a {
+    display: block;
+    padding: 15px 30px;
+    color: #f9fafb; /* Light text */
+    text-decoration: none;
+    font-size: 1rem;
     transition: all 0.2s ease;
+    border-left: 4px solid transparent;
 }
 
-.secondary-btn:hover {
-    background-color: #fee2e2;
-    border-color: #fca5a5;
+.sidebar-links li a:hover {
+    background-color: rgba(255, 204, 0, 0.1);
+    color: #ffcc00; /* Gold on hover */
+    border-left-color: #ffcc00;
 }
 
-/* Part 5: Clear and readable list layout */
-.list-section {
-    padding: 20px 30px 30px 30px;
+/* =========================================
+   HOME PAGE CONTENT STYLES
+   ========================================= */
+
+/* Main wrapper for home page content */
+.home-main {
+    width: 100%;
 }
 
-#idea-list {
-    list-style-type: none;
-}
-
-#idea-list li {
-    padding: 18px 22px;
-    background-color: #ffffff;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    border-left: 5px solid #3b82f6; /* Blue accent line */
-    font-size: 1.05rem;
-    color: #1f2937;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* 1. Parallax Hero Section */
+.hero-parallax {
+    /* CORRECTED: Red gradient removed, only image remains */
+    background-image: url('UCSC.jpg');
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    margin-top: -65px; /* Pulls hero up behind nav */
+}
+
+.hero-content {
+    animation: fadeIn 2s ease-out;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #ffcc00; /* UCSC Gold */
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.7);
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Scrolling Overlay Container */
+.scrolling-content {
+    position: relative;
+    z-index: 10;
+    background-color: #ffffff;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+}
+
+/* 3. Facts & Figures Section */
+.facts-figures {
+    background-color: #ffcc00; /* UCSC Gold */
+    padding: 80px 40px;
+    color: #800000; /* Maroon text */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    font-weight: 700;
+    color: #800000;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-#idea-list li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+.stat-card {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
 }
 
-.author {
-    color: #6b7280;
-    font-size: 0.95rem;
-    margin-left: auto;
+.stat-number {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-/* Part 6: Footer Element */
+.stat-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* 4. FAQ Section */
+.faq-section {
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.faq-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 40px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-item summary {
+    padding: 20px;
+    background-color: #f9fafb;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #1f2937;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: #800000;
+}
+
+.faq-item[open] summary::after {
+    content: '−';
+}
+
+.faq-item summary:hover {
+    background-color: #f3f4f6;
+}
+
+.faq-answer {
+    padding: 20px;
+    font-size: 1.05rem;
+    color: #4b5563;
+    background-color: #ffffff;
+    line-height: 1.6;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Footer */
 .page-footer {
-    color: #e2e8f0; /* Lighter text color to be readable on the new dark body background */
+    background-color: #800000; /* Maroon Footer */
+    color: #ffcc00; /* Gold text */
     font-size: 0.95rem;
     text-align: center;
+    padding: 20px;
+    margin-top: 0;
+}
+
+/* =========================================
+   IDEA BOARD STYLES (Kept for index.html)
+   ========================================= */
+/* ... (Keep your existing Idea Board styles here if they are in the same file) ... */
+
+/* =========================================
+   ABOUT US PAGE STYLES
+   ========================================= */
+
+/* Enables the smooth gliding animation when clicking sidebar links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Main container for text-heavy pages */
+.page-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Individual sections */
+.content-section {
+    margin-bottom: 60px;
+    /* Prevents the fixed top nav from covering the section title when scrolled to */
+    scroll-margin-top: 90px; 
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #800000; /* UCSC Maroon */
+    
+    /* These three lines are the magic trick to center it perfectly 
+       while keeping the border tightly wrapped under the text */
+    margin: 0 auto 30px auto; 
+    width: fit-content; 
+    display: block;
+    
+    border-bottom: 3px solid #ffcc00; /* UCSC Gold */
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+/* Typography for readability */
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.text-block em {
+    font-size: 0.95rem;
+    color: #6b7280;
+    display: block;
     margin-top: 10px;
 }
 
-/* Styling for the individual delete button */
-.delete-btn {
-    background: none;
-    border: none;
-    color: #ef4444; /* Red color to match the clear button */
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 12px;
-    padding: 0 5px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+/* Vision & Mission Cards Layout */
+.vm-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
-.delete-btn:hover {
-    background-color: #fee2e2;
-    color: #b91c1c;
+.vm-card {
+    flex: 1;
+    min-width: 300px;
+    background-color: #ffcc00; /* UCSC Gold */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.vm-card:hover {
+    transform: translateY(-5px);
+}
+
+.vm-card h3 {
+    font-size: 1.8rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vm-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Container for the FAQ on the About page */
+.faq-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* =========================================
+   SCROLLING & SECTION STYLES
+   ========================================= */
+html {
+    scroll-behavior: smooth; /* Makes the sidebar links glide smoothly */
+}
+
+.content-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    scroll-margin-top: 80px; /* Stops the section from hiding under the top nav */
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 30px;
+    border-bottom: 3px solid #ffcc00; /* UCSC Gold */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.text-block em { font-size: 0.95rem; color: #6b7280; display: block; margin-top: 10px; }
+
+/* Vision & Mission Cards */
+.vm-grid { display: flex; gap: 30px; flex-wrap: wrap; }
+.vm-card {
+    flex: 1; min-width: 300px; background-color: #ffcc00; padding: 40px;
+    border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.vm-card h3 { font-size: 1.8rem; color: #800000; margin-bottom: 20px; display: flex; gap: 10px; }
+.vm-card p { font-size: 1.1rem; line-height: 1.6; color: #1f2937; font-weight: 500; }
+
+/* Events List */
+.events-list { list-style: none; padding-left: 0; }
+.events-list li {
+    background-color: #ffffff; padding: 20px; margin-bottom: 15px;
+    border-radius: 8px; border-left: 5px solid #800000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 1.15rem; color: #374151;
+}
+.event-date { font-weight: 700; color: #800000; margin-right: 10px; }
+
+
+/* =========================================
+   PROPER DARK MODE OVERRIDES
+   ========================================= */
+body.dark-mode {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+/* Make backgrounds dark instead of white */
+body.dark-mode .scrolling-content,
+body.dark-mode .faq-section,
+body.dark-mode .events-list li {
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
+/* Adjust text colors for dark mode readability */
+body.dark-mode .text-block p,
+body.dark-mode .events-list li {
+    color: #cbd5e1;
+}
+
+body.dark-mode .faq-title,
+body.dark-mode .page-title,
+body.dark-mode .event-date {
+    color: #ffcc00; /* Gold looks better than Maroon on dark grey */
+    border-bottom-color: #f9fafb;
+}
+
+body.dark-mode .faq-item {
+    border-color: #374151;
+}
+
+body.dark-mode .faq-item summary {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+body.dark-mode .faq-item summary:hover {
+    background-color: #4b5563;
+}
+
+body.dark-mode .faq-answer {
+    background-color: #1f2937;
+    color: #cbd5e1;
+    border-top-color: #374151;
+}
+
+body.dark-mode .events-list li {
+    border-left-color: #ffcc00;
 }
