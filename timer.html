@@ -1,262 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus Session Dashboard</title>
-<style>
-/* --- Import Font --- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
-
-* { box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif; }
-body, html { min-height:100vh; width:100%; overflow-x:hidden; padding:40px 20px; }
-
-/* Background */
-body {
-  background: url('https://th.bing.com/th/id/OIP.PNWM88JK3o0ISnSe4bbHXwHaDw?w=327&h=177&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3') no-repeat center center fixed;
-  background-size: cover;
-  position: relative;
-}
-body::before {
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(180deg, rgba(255,107,107,0.35), rgba(255,217,61,0.35));
-  backdrop-filter: blur(6px);
-  z-index:0;
-}
-
-/* Dashboard */
-.dashboard-container {
-  position: relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:40px;
-  max-width:800px;
-  margin:0 auto;
-}
-
-/* Timer Card */
-.timer-card {
-  width:100%;
-  text-align:center;
-  background: rgba(255,255,255,0.10);
-  backdrop-filter:blur(20px);
-  border-radius:22px;
-  padding:30px 20px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.35);
-}
-#timer { font-size:5rem; font-weight:800; color:white; letter-spacing:2px; text-shadow:0 6px 20px rgba(0,0,0,0.6); margin-bottom:10px; }
-#status { font-weight:600; font-size:1rem; color:rgba(255,255,255,0.85); margin-bottom:20px; }
-
-/* Controls Buttons - Red/Yellow Theme */
-.controls button {
-  padding: 12px 40px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
-
-/* Start button - Coral / Light Red */
-.controls #start { background: #FF6B6B; color: #FFFFFF; }
-.controls #start:hover { background: #FF4C4C; transform: translateY(-2px) scale(1.03); box-shadow: 0 6px 15px rgba(0,0,0,0.35); }
-
-/* Pause & Reset buttons - Yellow */
-.controls #pause, .controls #reset { background: #FFD93D; color: #FFFFFF; }
-.controls #pause:hover, .controls #reset:hover { background: #FFC107; transform: translateY(-2px); }
-
-/* Bottom Row */
-.bottom-row { display:flex; gap:20px; width:100%; flex-wrap:wrap; justify-content:space-between; }
-
-/* Cards */
-.tasks-card, .progress-card {
-  flex:1 1 45%;
-  min-height:300px;
-  background: rgba(255,255,255,0.10);
-  backdrop-filter:blur(20px);
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.35);
-}
-
-/* Tasks */
-.task-list { max-height:400px; overflow-y:auto; margin-top:10px; }
-.task-item { display:flex; justify-content:space-between; padding:6px 10px; margin-bottom:6px; border-radius:10px; background: rgba(255,255,255,0.08); cursor:pointer; }
-.task-item span { flex:1; }
-.task-item button {
-  background: #FFD93D; border-radius: 6px; color: #FFFFFF; padding: 3px 8px; font-weight:bold; cursor:pointer; transition: all 0.3s ease;
-}
-.task-item button:hover { background: #FFC107; transform: translateY(-1px); }
-
-/* Task input */
-.task-input { display:flex; gap:5px; margin-bottom:10px; }
-.task-input input { flex:1; padding:6px 10px; border-radius:8px; border:none; }
-.task-input button { padding:6px 12px; border-radius:8px; border:none; background:#FF6B6B; color:#FFFFFF; cursor:pointer; font-weight:600; transition: all 0.3s ease; }
-.task-input button:hover { background:#FF4C4C; transform:translateY(-1px); }
-
-/* Progress Circle */
-.progress-circle-container { position:relative; width:120px; height:120px; margin:0 auto 10px; }
-.progress-ring__circle { stroke:#FF6B6B; }
-.progress-text { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:white; font-weight:700; }
-
-/* Responsive */
-@media(max-width:900px){
-  .bottom-row { flex-direction:column; align-items:center; }
-  .tasks-card, .progress-card { width:100%; max-width:450px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Timer - Student Hub</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="timer-page">
 
-<div class="dashboard-container">
+    <nav class="top-nav">
+        <div class="nav-logo">💡 Student Hub</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="index.html">Idea Board</a></li>
+            <li><a href="timer.html" class="active">Study Timer</a></li>
+            <li><a href="gpa.html">GPA Calculator</a></li>
+        </ul>
+        
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+            <span class="icon sun">☀️</span>
+            <span class="icon moon" style="display: none;">🌙</span>
+        </button>
+    </nav>
 
-  <!-- Timer Card -->
-  <div class="timer-card">
-    <h1>Focus Timer</h1>
-    <div id="timer">25:00</div>
-    <div id="status">Ready</div>
+    <div class="timer-dashboard">
+        <div class="timer-card">
+            <h1 class="page-title" style="border:none; margin-bottom: 10px;">Focus Timer</h1>
+            <div id="timer">25:00</div>
+            <div id="status">Ready</div>
 
-    <!-- Controls -->
-    <div class="controls">
-      <button id="start">Start</button>
-      <button id="pause">Pause</button>
-      <button id="reset">Reset</button>
+            <div class="timer-controls">
+                <button id="start">Start</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+
+        <div class="bottom-row">
+            <div class="tasks-card">
+                <h2>Tasks</h2>
+                <div class="task-input">
+                    <input type="text" id="taskNameInput" placeholder="Enter Task Name...">
+                    <button id="addTask">Add</button>
+                </div>
+                <div class="task-list" id="taskList"></div>
+            </div>
+
+            <div class="progress-card">
+                <h2>Daily Progress</h2>
+                <div class="progress-circle-container">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring__background" stroke="#e5e7eb" stroke-width="10" fill="transparent" r="50" cx="60" cy="60"/>
+                        <circle class="progress-ring__circle" stroke="#800000" stroke-width="10" fill="transparent" r="50" cx="60" cy="60"/>
+                    </svg>
+                    <div class="progress-text" id="todayMinutes">0 min</div>
+                </div>
+                <div class="progress-info">
+                    <p>Yesterday: <span id="yesterdayMinutes">0</span> min</p>
+                    <p>Streak: <span id="streakDays">0</span> days</p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Bottom Row -->
-  <div class="bottom-row">
+    <script src="script.js"></script>
 
-    <!-- Tasks -->
-    <div class="tasks-card">
-      <h2>Tasks</h2>
-      <div class="task-input">
-        <input type="text" id="taskNameInput" placeholder="Enter Task Name">
-        <button id="addTask">Add</button>
-      </div>
-      <div class="task-list" id="taskList"></div>
-    </div>
+    <script>
+        const alarmSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
 
-    <!-- Daily Progress -->
-    <div class="progress-card">
-      <h2>Daily Progress</h2>
-      <div class="progress-circle-container">
-        <svg class="progress-ring" width="120" height="120">
-          <circle class="progress-ring__background" stroke="#6b7280" stroke-width="10" fill="transparent" r="50" cx="60" cy="60"/>
-          <circle class="progress-ring__circle" stroke="#FF6B6B" stroke-width="10" fill="transparent" r="50" cx="60" cy="60"/>
-        </svg>
-        <div class="progress-text" id="todayMinutes">0 min</div>
-      </div>
-      <div class="progress-info">
-        <p>Yesterday: <span id="yesterdayMinutes">0</span> min</p>
-        <p>Streak: <span id="streakDays">0</span> days</p>
-      </div>
-    </div>
+        let tasks = [];
+        let currentTaskIndex = null;
+        let timeLeft = 25 * 60;
+        let timerId = null;
 
-  </div>
+        const timerDisplay = document.getElementById('timer');
+        const statusLabel = document.getElementById('status');
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskNameInput');
 
-</div>
+        function updateUI() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const formatted = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timerDisplay.textContent = formatted;
+            document.title = `${formatted} - Focus`;
 
-<script>
-// Alarm sound
-const alarmSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+            if (currentTaskIndex !== null) {
+                tasks[currentTaskIndex].minutesCompleted = 25 * 60 - timeLeft;
+                tasks[currentTaskIndex].element.querySelector('.task-minutes').textContent = 
+                    `${Math.floor(tasks[currentTaskIndex].minutesCompleted / 60)} min`;
+            }
+        }
 
-let tasks = [];
-let currentTaskIndex = null;
-let timeLeft = 25*60;
-let timerId = null;
+        function startTimer() {
+            if (timerId !== null || currentTaskIndex === null) {
+                if (currentTaskIndex === null) alert("Please select a task from the list first!");
+                return;
+            }
+            statusLabel.textContent = `Focusing: ${tasks[currentTaskIndex].name}`;
+            timerId = setInterval(() => {
+                if (timeLeft > 0) { 
+                    timeLeft--; 
+                    updateUI(); 
+                } else { 
+                    clearInterval(timerId);
+                    timerId = null;
+                    alarmSound.play();
+                    alert('Task Finished!');
+                    resetTimer();
+                }
+            }, 1000);
+        }
 
-const timerDisplay = document.getElementById('timer');
-const statusLabel = document.getElementById('status');
-const taskList = document.getElementById('taskList');
-const taskInput = document.getElementById('taskNameInput');
+        function pauseTimer() { 
+            clearInterval(timerId); 
+            timerId = null; 
+            statusLabel.textContent = 'Paused'; 
+            alarmSound.pause(); 
+            alarmSound.currentTime = 0; 
+        }
 
-// Timer update
-function updateUI() {
-  const minutes = Math.floor(timeLeft/60);
-  const seconds = timeLeft%60;
-  const formatted = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-  timerDisplay.textContent = formatted;
-  document.title = `${formatted} - Focus`;
+        function resetTimer() { 
+            pauseTimer(); 
+            timeLeft = 25 * 60; 
+            updateUI(); 
+            statusLabel.textContent = 'Ready'; 
+        }
 
-  if(currentTaskIndex !== null){
-    tasks[currentTaskIndex].minutesCompleted = 25*60 - timeLeft;
-    tasks[currentTaskIndex].element.querySelector('.task-minutes').textContent = 
-      `${Math.floor(tasks[currentTaskIndex].minutesCompleted/60)} min`;
-  }
-}
+        function renderTask(taskObj, index) {
+            const task = document.createElement('div');
+            task.classList.add('task-item');
+            task.innerHTML = `<span>${taskObj.name} (<span class="task-minutes">0 min</span>)</span><button title="Remove Task">&times;</button>`;
+            
+            task.querySelector('button').addEventListener('click', (e) => {
+                e.stopPropagation();
+                task.remove();
+                tasks.splice(index, 1);
+                if (currentTaskIndex === index) resetTimer();
+                currentTaskIndex = null;
+            });
 
-// Timer controls
-function startTimer() {
-  if(timerId !== null || currentTaskIndex === null) return;
-  statusLabel.textContent = `Focusing: ${tasks[currentTaskIndex].name}`;
-  timerId = setInterval(()=>{
-    if(timeLeft>0){ 
-        timeLeft--; 
-        updateUI(); 
-    } else { 
-        clearInterval(timerId);
-        timerId=null;
-        alarmSound.play(); // play alarm
-        alert('Task Finished!');
-        resetTimer();
-    }
-  },1000);
-}
+            task.addEventListener('click', () => {
+                // Highlight active task
+                document.querySelectorAll('.task-item').forEach(el => el.style.borderLeft = 'none');
+                task.style.borderLeft = '4px solid #800000';
+                
+                currentTaskIndex = index;
+                timeLeft = 25 * 60 - tasks[index].minutesCompleted;
+                updateUI();
+                statusLabel.textContent = `Selected: ${taskObj.name} - Ready to Start`;
+            });
 
-function pauseTimer() { clearInterval(timerId); timerId=null; statusLabel.textContent='Paused'; alarmSound.pause(); alarmSound.currentTime=0; }
-function resetTimer() { pauseTimer(); timeLeft=25*60; updateUI(); statusLabel.textContent='Ready'; alarmSound.pause(); alarmSound.currentTime=0; }
+            taskObj.element = task;
+            taskList.appendChild(task);
+        }
 
-// Task management
-function renderTask(taskObj, index){
-  const task = document.createElement('div');
-  task.classList.add('task-item');
-  task.innerHTML = `<span>${taskObj.name} (<span class="task-minutes">0 min</span>)</span><button>×</button>`;
-  
-  task.querySelector('button').addEventListener('click', (e)=>{
-    e.stopPropagation();
-    task.remove();
-    tasks.splice(index,1);
-    if(currentTaskIndex === index) resetTimer();
-    currentTaskIndex = null;
-  });
+        document.getElementById('addTask').addEventListener('click', () => {
+            const name = taskInput.value.trim();
+            if (!name) return;
+            const taskObj = { name, minutesCompleted: 0, element: null };
+            tasks.push(taskObj);
+            renderTask(taskObj, tasks.length - 1);
+            taskInput.value = ''; 
+            taskInput.focus();
+        });
 
-  task.addEventListener('click', ()=>{
-    currentTaskIndex = index;
-    timeLeft = 25*60 - tasks[index].minutesCompleted;
-    updateUI();
-  });
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('addTask').click();
+        });
 
-  taskObj.element = task;
-  taskList.appendChild(task);
-}
+        document.getElementById('start').addEventListener('click', startTimer);
+        document.getElementById('pause').addEventListener('click', pauseTimer);
+        document.getElementById('reset').addEventListener('click', resetTimer);
 
-document.getElementById('addTask').addEventListener('click', ()=>{
-  const name = taskInput.value.trim();
-  if(!name) return;
-  const taskObj = { name, minutesCompleted:0, element:null };
-  tasks.push(taskObj);
-  renderTask(taskObj, tasks.length-1);
-  taskInput.value=''; taskInput.focus();
-});
-
-taskInput.addEventListener('keypress', (e)=>{
-  if(e.key==='Enter') document.getElementById('addTask').click();
-});
-
-// Timer Buttons
-document.getElementById('start').addEventListener('click', startTimer);
-document.getElementById('pause').addEventListener('click', pauseTimer);
-document.getElementById('reset').addEventListener('click', resetTimer);
-
-updateUI();
-</script>
-
+        updateUI();
+    </script>
 </body>
 </html>
