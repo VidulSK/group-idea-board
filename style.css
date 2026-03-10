@@ -221,3 +221,334 @@ body {
     background-color: #fee2e2;
     color: #b91c1c;
 }
+
+.top-nav {
+    width: 100%;
+    background-color: #111827; /* Matches the dark elements of your theme */
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: fixed; /* Keeps the navbar pinned to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it stays above all other content */
+}
+
+.nav-logo {
+    color: #f9fafb;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links li a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #f9fafb;
+    background-color: #1f2937;
+}
+
+/* Highlights the current page the user is on */
+.nav-links li a.active {
+    color: white;
+    background-color: #3b82f6; 
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+}
+
+/* CRITICAL: Update your existing body tag to include padding-top 
+   so the fixed navbar doesn't cover up the top of your idea board! */
+body {
+    /* Keep your existing body styles, but add this line: */
+    padding-top: 100px; 
+}
+
+.top-nav {
+    width: 100%;
+    background-color: #111827; 
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    transition: background-color 0.3s ease;
+}
+
+/* Grayscaled Theme Toggle Button */
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    filter: grayscale(100%); /* Keeps the icons fully gray */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.theme-btn:hover {
+    opacity: 1;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 65px; /* Sits right under the top nav */
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 65px);
+    background-color: #1f2937;
+    padding: 25px 0;
+    border-right: 1px solid #374151;
+    z-index: 900;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-links li a {
+    display: block;
+    padding: 15px 30px;
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-links li a:hover {
+    background-color: #374151;
+    color: #f9fafb;
+    border-left: 4px solid #3b82f6;
+}
+
+/* IMPORTANT: Push the main content over so the sidebar doesn't cover it */
+body {
+    padding-top: 100px; 
+    padding-left: 240px; /* 220px sidebar width + 20px spacing */
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* --- LIGHT MODE OVERRIDES --- */
+body.light-mode {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+}
+
+body.light-mode .top-nav,
+body.light-mode .sidebar {
+    background-color: #ffffff;
+    border-color: #e1e4e8;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .nav-logo {
+    color: #2b5876;
+}
+
+body.light-mode .nav-links li a,
+body.light-mode .sidebar-links li a {
+    color: #4b5563;
+}
+
+body.light-mode .nav-links li a:hover,
+body.light-mode .sidebar-links li a:hover {
+    background-color: #f0f4f8;
+    color: #1f2937;
+}
+
+body.light-mode .nav-links li a.active {
+    color: white;
+    background-color: #3b82f6;
+}
+
+/* =========================================
+   HOME PAGE STYLES (Add to bottom of style.css)
+   ========================================= */
+
+/* Main wrapper to ignore default body padding for the full-width sections */
+.home-main {
+    width: 100%;
+    margin-top: -100px; /* Pulls content up under the fixed nav */
+    margin-left: -20px; /* Adjusts for body padding */
+}
+
+/* 1. Parallax Hero Section (Stanford Style) */
+.hero-parallax {
+    /* Replace 'UCSC.jpg' with your actual image path if it's in a folder */
+    background-image: linear-gradient(rgba(128, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('UCSC.jpg');
+    
+    /* This 'fixed' property is the magic behind the Stanford scroll effect */
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+.hero-content {
+    animation: fadeIn 2s ease-out;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #ffcc00; /* UCSC Gold */
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Scrolling Overlay Container */
+.scrolling-content {
+    position: relative;
+    z-index: 10;
+    background-color: #ffffff;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+}
+
+/* 3. Facts & Figures Section (Gold Theme) */
+.facts-figures {
+    background-color: #ffcc00; /* Matching the sample image */
+    padding: 80px 40px;
+    color: #000000;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    font-weight: 700;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.stat-number {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* 4. FAQ Section (Maroon Theme Accents) */
+.faq-section {
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.faq-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #800000; /* UCSC Maroon */
+    margin-bottom: 40px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Style for the clickable question */
+.faq-item summary {
+    padding: 20px;
+    background-color: #f9fafb;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #1f2937;
+    list-style: none; /* Removes default arrow in some browsers */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none; /* Removes arrow in Safari/Chrome */
+}
+
+.faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: #800000;
+}
+
+.faq-item[open] summary::after {
+    content: '−';
+}
+
+.faq-item summary:hover {
+    background-color: #f3f4f6;
+}
+
+/* Style for the answer text */
+.faq-answer {
+    padding: 20px;
+    font-size: 1.05rem;
+    color: #4b5563;
+    background-color: #ffffff;
+    line-height: 1.6;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Make sure the FAQ works cleanly in Dark Mode */
+body.light-mode .scrolling-content {
+    background-color: #ffffff;
+}

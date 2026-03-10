@@ -79,3 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderIdeas();
 });
+
+// Theme Toggle Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const sunIcon = document.querySelector('.sun');
+    const moonIcon = document.querySelector('.moon');
+
+    themeBtn.addEventListener('click', () => {
+        // Toggles the .light-mode class on the body element
+        document.body.classList.toggle('light-mode');
+        
+        // Swaps the sun and moon icons
+        if (document.body.classList.contains('light-mode')) {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'inline';
+        } else {
+            sunIcon.style.display = 'inline';
+            moonIcon.style.display = 'none';
+        }
+    });
