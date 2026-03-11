@@ -714,3 +714,164 @@ body.dark-mode .progress-ring__circle { stroke: #ffcc00; }
 body.dark-mode .progress-text { color: #f9fafb; }
 body.dark-mode .progress-info p { color: #9ca3af; }
 body.dark-mode .progress-info span { color: #ffcc00; }
+
+/* =========================================
+   MOBILE RESPONSIVENESS (Study Timer & Navbar)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Fix Navbar Stacking & Body Padding */
+    body.timer-page {
+        padding-top: 160px; /* Pushes the timer down so the taller navbar doesn't cover it */
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .top-nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .theme-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+
+    /* 2. Scale down the giant timer text so it fits on screen */
+    #timer {
+        font-size: 4rem; 
+    }
+
+    /* 3. Stack the Timer control buttons (Start, Pause, Reset) */
+    .timer-controls {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .timer-controls button {
+        width: 100%; /* Makes buttons full-width for easier thumb tapping */
+    }
+
+    /* 4. Stack the Tasks Card and Progress Card vertically */
+    .bottom-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .tasks-card, .progress-card {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    /* 5. Make the Add Task input field and button mobile friendly */
+    .task-input {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .task-input input, 
+    .task-input button {
+        width: 100%;
+    }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (Home Page)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Fix Body Padding & Hide Sidebar */
+    body {
+        /* Removes left sidebar padding and adds top padding for the stacked nav */
+        padding: 140px 0 0 0 !important; 
+    }
+
+    .sidebar {
+        display: none; /* Hides the sidebar on small screens to save space */
+    }
+
+    .home-main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* 2. Stack Top Navigation */
+    .top-nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .theme-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+
+    /* 3. Hero Section Adjustments */
+    .hero-parallax {
+        /* Pulls the image up behind the taller mobile nav */
+        margin-top: -140px; 
+        height: 70vh; /* Makes the image slightly shorter on mobile */
+        background-attachment: scroll; /* Fixes a known mobile browser bug with fixed parallax */
+    }
+
+    .hero-title {
+        font-size: 2.5rem; /* Scales down the giant text */
+        line-height: 1.2;
+        padding: 0 15px;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        padding: 0 15px;
+        margin-top: 10px;
+    }
+
+    /* 4. Content Sections Spacing */
+    .content-section, .facts-figures, .faq-section {
+        padding: 50px 20px !important; /* Reduces edge padding for smaller screens */
+    }
+
+    .page-title, .section-title, .faq-title {
+        font-size: 2rem; /* Scales down section headers */
+    }
+
+    /* 5. Facts & Figures Cards */
+    .stats-grid {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .stat-card {
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+    }
+
+    /* 6. Vision & Mission Cards */
+    .vm-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .vm-card {
+        min-width: 100%;
+        padding: 25px;
+    }
+}
