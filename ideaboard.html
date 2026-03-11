@@ -291,6 +291,78 @@
             background-color: #7f1d1d;
             color: #fca5a5;
         }
+        /* =========================================
+   MOBILE RESPONSIVENESS (Idea Board & Layout)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Fix Body Padding & Sidebar */
+    body {
+        /* Removes the 240px left padding so the board takes up the full screen */
+        padding: 140px 15px 20px 15px; 
+    }
+
+    .sidebar {
+        /* Hides the sidebar on small screens to save space */
+        display: none; 
+    }
+
+    /* 2. Stack the Top Navigation */
+    .top-nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* 3. Stack the Input Section for the Idea Board */
+    .input-section {
+        flex-direction: column;
+        padding: 20px 15px;
+    }
+
+    #name-select, #idea-input, #add-btn {
+        width: 100%;
+        min-width: 100%; /* Forces inputs to stretch full width on mobile */
+        margin-bottom: 5px;
+    }
+
+    /* 4. Adjust the List Header (Count & Clear Button) */
+    .list-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .secondary-btn {
+        width: 100%; /* Makes the clear button span the width of the card */
+    }
+
+    /* 5. Adjust Individual Idea List Items */
+    #idea-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+    }
+
+    .author {
+        margin-left: 0;
+        margin-top: 5px;
+        font-size: 0.85rem;
+    }
+
+    .delete-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        margin-left: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -349,101 +421,126 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+    
+    // ==========================================
+    // THEME TOGGLE (Works safely on all pages)
+    // ==========================================
+    const themeBtn = document.getElementById('theme-toggle');
+    const sunIcon = document.querySelector('.sun');
+    const moonIcon = document.querySelector('.moon');
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
             
-            // --- Theme Toggle Logic ---
-            const themeBtn = document.getElementById('theme-toggle');
-            const sunIcon = document.querySelector('.sun');
-            const moonIcon = document.querySelector('.moon');
-
-            if (themeBtn) {
-                themeBtn.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-mode');
-                    
-                    if (document.body.classList.contains('dark-mode')) {
-                        sunIcon.style.display = 'none';
-                        moonIcon.style.display = 'inline';
-                    } else {
-                        sunIcon.style.display = 'inline';
-                        moonIcon.style.display = 'none';
-                    }
-                });
+            if (document.body.classList.contains('dark-mode')) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+            } else {
+                sunIcon.style.display = 'inline';
+                moonIcon.style.display = 'none';
             }
+        });
+    }
 
-            // --- Idea Board Logic ---
-            let ideas = [];
+    // ==========================================
+    // IDEA BOARD LOGIC (Only runs on Idea Board)
+    // ==========================================
+    const addBtn = document.getElementById('add-btn');
+    
+    if (addBtn) {
+        const nameSelect = document.getElementById('name-select');
+        const ideaInput = document.getElementById('idea-input');
+        const ideaList = document.getElementById('idea-list');
+        const ideaCountDisplay = document.getElementById('idea-count');
+        const clearBtn = document.getElementById('clear-btn');
 
-            const addBtn = document.getElementById('add-btn');
-            const nameSelect = document.getElementById('name-select');
-            const ideaInput = document.getElementById('idea-input');
-            const ideaList = document.getElementById('idea-list');
-            const ideaCountDisplay = document.getElementById('idea-count');
-            const clearBtn = document.getElementById('clear-btn');
+        // --- NEW FIX: LOCAL STORAGE INITIALIZATION ---
+        // Checks if 'studentHubIdeas' exists in the browser. If yes, loads it. If no, starts an empty array.
+        let ideas = JSON.parse(localStorage.getItem('studentHubIdeas')) || [];
 
-            function renderIdeas() {
-                ideaList.innerHTML = '';
+        function renderIdeas() {
+            ideaList.innerHTML = '';
+            ideas.forEach((idea, index) => {
+                const newListItem = document.createElement('li');
+                const ideaTextNode = document.createTextNode(idea.text);
+                
+                const authorSpan = document.createElement('span');
+                authorSpan.className = 'author';
+                authorSpan.textContent = `– suggested by ${idea.author}`;
 
-                ideas.forEach((idea, index) => {
-                    const newListItem = document.createElement('li');
-                    const ideaTextNode = document.createTextNode(idea.text);
-                    
-                    const authorSpan = document.createElement('span');
-                    authorSpan.className = 'author';
-                    authorSpan.textContent = `– suggested by ${idea.author}`;
-
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'delete-btn';
-                    deleteBtn.innerHTML = '&times;'; 
-                    deleteBtn.title = 'Remove this idea';
-                    
-                    deleteBtn.addEventListener('click', () => {
-                        ideas.splice(index, 1); 
-                        renderIdeas(); 
-                    });
-
-                    newListItem.appendChild(ideaTextNode);
-                    newListItem.appendChild(authorSpan);
-                    newListItem.appendChild(deleteBtn); 
-                    ideaList.appendChild(newListItem);
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerHTML = '&times;';
+                deleteBtn.title = 'Remove this idea';
+                
+                deleteBtn.addEventListener('click', () => {
+                    ideas.splice(index, 1); 
+                    renderIdeas(); 
                 });
 
-                ideaCountDisplay.textContent = `Total Ideas: ${ideas.length}`;
-            }
-
-            function addIdea() {
-                const name = nameSelect.value;
-                const ideaText = ideaInput.value.trim();
-
-                if (!name) {
-                    alert('Please select your name from the dropdown.');
-                    return;
-                }
-                if (ideaText === '') {
-                    alert('Please type an idea before adding.');
-                    return;
-                }
-
-                const newIdea = { text: ideaText, author: name };
-                ideas.push(newIdea);
-                renderIdeas();
-                ideaInput.value = '';
-            }
-
-            function clearIdeas() {
-                if (confirm("Are you sure you want to clear all ideas?")) {
-                    ideas = [];
-                    renderIdeas();
-                }
-            }
-
-            addBtn.addEventListener('click', addIdea);
-            ideaInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') { addIdea(); }
+                newListItem.appendChild(ideaTextNode);
+                newListItem.appendChild(authorSpan);
+                newListItem.appendChild(deleteBtn); 
+                ideaList.appendChild(newListItem);
             });
             
-            clearBtn.addEventListener('click', clearIdeas);
+            ideaCountDisplay.textContent = `Total Ideas: ${ideas.length}`;
 
+            // --- NEW FIX: SAVE TO LOCAL STORAGE ---
+            // Saves the current state of the array to the browser every time the list is updated
+            localStorage.setItem('studentHubIdeas', JSON.stringify(ideas));
+        }
+
+        function addIdea() {
+            const name = nameSelect.value;
+            let ideaText = ideaInput.value.trim();
+
+            if (!name) { alert('Please select your name from the dropdown.'); return; }
+            if (ideaText === '') { alert('Please type an idea before adding.'); return; }
+
+            // --- NEW FIX: CATCH REPEATED PHRASES WITHIN THE SAME INPUT ---
+            // This regex checks if the user typed the exact same phrase twice with a space in the middle.
+            // Example: "Hello Hello" -> reduces it to "Hello"
+            const repeatedPhraseRegex = /^(.+?)\s+\1$/i;
+            if (repeatedPhraseRegex.test(ideaText)) {
+                ideaText = ideaText.replace(repeatedPhraseRegex, '$1');
+            }
+
+            // Duplicate check against the saved array
+            const isDuplicate = ideas.some(idea => 
+                idea.text.toLowerCase() === ideaText.toLowerCase() && 
+                idea.author === name
+            );
+
+            if (isDuplicate) {
+                alert('You added this already');
+                return; 
+            }
+
+            ideas.push({ text: ideaText, author: name });
             renderIdeas();
+            ideaInput.value = '';
+        }
+
+        function clearIdeas() {
+            if (confirm("Are you sure you want to clear all ideas?")) {
+                ideas = [];
+                renderIdeas();
+            }
+        }
+
+        addBtn.addEventListener('click', addIdea);
+        ideaInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') { addIdea(); }
         });
+        
+        clearBtn.addEventListener('click', clearIdeas);
+        
+        // Render the ideas from Local Storage as soon as the page loads
+        renderIdeas();
+    }
+});
     </script>
 </body>
 </html>
