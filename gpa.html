@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class', // Enables toggling dark mode via a CSS class on the html element
+            darkMode: 'class', 
             theme: {
                 extend: {
                     colors: {
@@ -28,20 +28,18 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Updated to match the consistent UCSC theme across the site */
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start; 
             min-height: 100vh;
-            padding: 100px 20px 40px 20px; /* 100px top padding ensures navbar doesn't cover content */
+            padding: 100px 20px 40px 20px; 
             color: #333;
             background-color: #f9fafb;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Dark mode background for the body */
         .dark body {
             background-color: #111827;
         }
@@ -51,7 +49,7 @@
            ========================================= */
         .top-nav {
             width: 100%;
-            background-color: #800000; /* UCSC Maroon */
+            background-color: #800000; 
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
@@ -64,7 +62,7 @@
         }
 
         .nav-logo {
-            color: #ffcc00; /* UCSC Gold */
+            color: #ffcc00; 
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -121,7 +119,6 @@
         
         .row-transition { transition: all 0.3s ease; }
         
-        /* Focus rings adjusting for light/dark mode */
         .gpa-focus:focus {
             border-color: #3b82f6 !important;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
@@ -141,6 +138,35 @@
         .dark .page-footer {
             color: #9ca3af;
         }
+
+        /* =========================================
+           MOBILE RESPONSIVENESS
+           ========================================= */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Gives space for the stacked navbar */
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .top-nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .theme-btn {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body class="transition-colors duration-300">
@@ -149,7 +175,7 @@
         <div class="nav-logo">UCSC Hub</div>
         <ul class="nav-links">
             <li><a href="home.html">Home</a></li>
-            <li><a href="ideaboard.html">Idea Board</a></li>
+            <li><a href="index.html">Idea Board</a></li>
             <li><a href="timer.html">Study Timer</a></li>
             <li><a href="gpa.html" class="active">GPA Calculator</a></li>
         </ul>
@@ -211,7 +237,7 @@
                             <p id="total-credits" class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
                         </div>
                     </div>
-                    <div class="text-center md:text-right bg-[#fafbfc] dark:bg-gray-900 px-8 py-4 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-300">
+                    <div class="text-center md:text-right bg-[#fafbfc] dark:bg-gray-900 px-8 py-4 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-300 w-full md:w-auto">
                         <p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 font-semibold">Semester GPA</p>
                         <p id="gpa-display" class="text-5xl font-black text-[#800000] dark:text-white tracking-tight">0.00</p>
                         <p id="cgpa-display" class="text-sm text-gray-500 dark:text-gray-400 mt-2 font-semibold">Cumulative GPA: 0.00</p>
@@ -269,7 +295,6 @@
         const moonIcon = document.querySelector('.moon');
         const htmlElement = document.documentElement;
 
-        // Check local storage for theme preference
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
             sunIcon.style.display = 'none';
@@ -317,7 +342,6 @@
             const displayGPA = document.getElementById('gpa-display');
             const displayCGPA = document.getElementById('cgpa-display');
 
-            // CSS classes for tabs matching the Maroon/Gold theme
             const activeTabClass = 'sem-btn py-2 px-4 rounded-lg bg-[#800000] dark:bg-gold text-white dark:text-maroon font-semibold shadow-[0_4px_6px_rgba(0,0,0,0.2)] transition-all';
             const inactiveTabClass = 'sem-btn py-2 px-4 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-medium transition-all';
 
@@ -385,7 +409,9 @@
 
             function addModuleRow(nameVal = '', creditVal = '', gradeVal = '') {
                 const newRow = document.createElement('div');
-                newRow.className = 'module-row grid grid-cols-1 md:grid-cols-12 gap-3 items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 row-transition hover:border-red-200 dark:hover:border-gold hover:shadow-sm transition-all opacity-0 transform translate-y-2';
+                
+                // UPDATED FOR MOBILE: Changed grid classes so columns stack nicely on small screens
+                newRow.className = 'module-row grid grid-cols-12 gap-3 items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 row-transition hover:border-red-200 dark:hover:border-gold hover:shadow-sm transition-all opacity-0 transform translate-y-2';
                 
                 const grades = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'E'];
                 let optionsHTML = `<option value="" disabled ${gradeVal === '' ? 'selected' : ''}>Select</option>`;
@@ -393,15 +419,16 @@
                     optionsHTML += `<option value="${g}" ${gradeVal === g ? 'selected' : ''}>${g}</option>`;
                 });
 
+                // UPDATED FOR MOBILE: Tailwind responsive grid spans
                 newRow.innerHTML = `
-                    <div class="md:col-span-6"><input type="text" value="${nameVal}" placeholder="Module Name" class="gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 outline-none transition-colors"></div>
-                    <div class="md:col-span-2"><input type="number" value="${creditVal}" min="1" max="10" placeholder="Credits" class="credit-input gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 text-center outline-none transition-colors"></div>
-                    <div class="md:col-span-3">
+                    <div class="col-span-12 md:col-span-6"><input type="text" value="${nameVal}" placeholder="Module Name" class="gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 outline-none transition-colors"></div>
+                    <div class="col-span-4 md:col-span-2"><input type="number" value="${creditVal}" min="1" max="10" placeholder="Credits" class="credit-input gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 text-center outline-none transition-colors"></div>
+                    <div class="col-span-6 md:col-span-3">
                         <select class="grade-select gpa-focus w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white px-3 py-2 outline-none transition-colors text-center cursor-pointer">
                             ${optionsHTML}
                         </select>
                     </div>
-                    <div class="md:col-span-1 flex justify-center"><button class="delete-btn-gpa text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-colors p-2 rounded-lg" title="Delete Module"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
+                    <div class="col-span-2 md:col-span-1 flex justify-center items-center"><button class="delete-btn-gpa text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-colors p-2 rounded-lg" title="Delete Module"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
                 `;
                 
                 container.appendChild(newRow);
@@ -461,3 +488,5 @@
     </script>
 </body>
 </html>
+
+```
